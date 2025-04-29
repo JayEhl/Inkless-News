@@ -1,0 +1,85 @@
+Create a full-stack web app called "Inkless News" with the following specifications:
+
+**Purpose**: Every Sunday morning, the app compiles a newspaper-style collection of curated articles tailored to a user’s interests, selected by the OpenAI ChatGPT API from RSS feeds, and sends it automatically to the user’s Kindle email as a formatted document (e.g., PDF or MOBI).
+
+**Features**:
+1. **User Settings Page**:
+   - Allow users to input:
+     - RSS feed URLs for their news sources.
+     - Topics of interest (e.g., technology, sports, politics) as a comma-separated list or tags.
+     - Kindle email address for automatic delivery.
+   - Provide a suggestions section for RSS feeds based on the user’s saved topics (e.g., for "technology," suggest feeds like TechCrunch, Wired, or Ars Technica).
+   - Save settings securely in a database.
+2. **Article Curation**:
+   - Use the OpenAI ChatGPT API (gpt-3.5-turbo or gpt-4) to analyze articles from the provided RSS feeds and select those matching the user’s topics of interest.
+   - Summarize each selected article to a short paragraph (100-150 words) using the ChatGPT API.
+   - Format the curated articles into a newspaper-style layout (e.g., title, summary, source, and link to the original article).
+3. **Automated Delivery**:
+   - Every Sunday at 8 AM (user’s local time), compile the curated articles into a Kindle-compatible format (PDF or MOBI).
+   - Send the compiled document to the user’s Kindle email address using a secure email service (e.g., Resend or AWS SES).
+4. **RSS Suggestions**:
+   - Maintain a predefined mapping of topics to popular RSS feeds (e.g., "sports" → ESPN, BBC Sport; "technology" → TechCrunch, Wired).
+   - Display suggested RSS feeds on the settings page when users add or update topics.
+5. **User Authentication**:
+   - Implement user authentication (e.g., Google Auth or email/password) to secure the settings page.
+   - Ensure each user’s data (RSS URLs, topics, Kindle email) is tied to their account.
+
+**Design Requirements**:
+- **Theme**: Navy (#1A2A44) and white (#FFFFFF) color scheme.
+- **Font**: Use Bierstadt (or a fallback like Calibri or Arial if Bierstadt is unavailable) for all text.
+- **Layout**: Clean, minimalist, newspaper-inspired design with clear sections for settings, suggested RSS feeds, and a preview of curated articles (if possible).
+- **Responsive**: Ensure the app is mobile-friendly.
+
+**Technical Requirements**:
+1. **Frontend**:
+   - Use React with Tailwind CSS for styling.
+   - Host via CDN (e.g., cdn.jsdelivr.net for React, Tailwind).
+   - Create reusable components for the settings form, RSS suggestions, and article previews.
+   - Avoid using `<form>` onSubmit due to sandbox restrictions; use button click handlers instead.
+   - Use `className` for JSX attributes.
+2. **Backend**:
+   - Use Node.js with Express for the server.
+   - Integrate the OpenAI ChatGPT API for article curation and summarization (use the official OpenAI Node.js library).
+   - Parse RSS feeds using a library like `rss-parser`.
+   - Send emails using a service like Resend or AWS SES, configured with API keys stored in Replit Secrets.
+3. **Database**:
+   - Use Postgres (via Neon or Replit’s Postgres integration) to store:
+     - User data (ID, email, hashed password or auth token).
+     - User settings (RSS URLs, topics, Kindle email).
+     - Optionally, a cache of recently curated articles to avoid redundant API calls.
+   - Set up tables with proper schema (e.g., `users`, `user_settings`, `articles`).
+4. **Scheduling**:
+   - Use a cron job or Replit’s scheduling feature to run the curation and email delivery every Sunday at 8 AM.
+5. **API Integrations**:
+   - OpenAI ChatGPT API for article selection and summarization.
+   - Email service API for Kindle delivery.
+   - RSS feed parsing for article ingestion.
+6. **Security**:
+   - Store API keys and sensitive data in Replit Secrets.
+   - Sanitize user inputs to prevent XSS or injection attacks.
+   - Use HTTPS for all communications.
+
+**Implementation Steps**:
+1. Set up a new Replit project with Node.js and React.
+2. Configure Postgres database with tables for users and settings.
+3. Create the frontend with React and Tailwind CSS, implementing the settings page and RSS suggestions.
+4. Build the backend with Express, integrating RSS parsing, ChatGPT API, and email delivery.
+5. Set up a cron job for Sunday morning delivery.
+6. Test the app end-to-end, ensuring articles are curated, formatted, and sent to the Kindle email.
+7. Deploy the app via Replit’s hosting.
+
+**Deliverables**:
+- A single-page HTML app with embedded React for the frontend.
+- A Node.js/Express backend with all API routes.
+- Postgres database schema and setup.
+- Full source code, including dependencies in `package.json`.
+- Instructions in a `README.md` for running and deploying the app.
+
+**Notes**:
+- Use the latest stable versions of all libraries.
+- Handle errors gracefully (e.g., invalid RSS URLs, API failures).
+- Ensure the app is deployable directly from Replit.
+- If Bierstadt font is not available, use a fallback and note it in the `README.md`.
+- Provide a sample RSS feed mapping for at least 5 topics (e.g., technology, sports, politics, science, entertainment).
+
+Please generate the complete app, including all files (`index.html`, React components, Node.js server, database schema, etc.), and deploy it on Replit. Provide the deployed app URL and a link to the Replit project.

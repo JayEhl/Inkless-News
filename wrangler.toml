@@ -1,0 +1,23 @@
+name = "inkless-news"
+main = "dist/index.js"
+compatibility_date = "2024-04-27"
+
+[build]
+command = "npm run build"
+watch_dir = "src"
+
+[build.upload]
+format = "modules"
+main = "./dist/index.js"
+dir = "dist"
+
+[env.production]
+vars = { ENVIRONMENT = "production" }
+
+[env.development]
+vars = { ENVIRONMENT = "development" }
+
+[[d1_databases]]
+binding = "DB"
+database_name = "inkless_news"
+database_id = "your-database-id" 
